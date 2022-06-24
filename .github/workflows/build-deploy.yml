@@ -35,5 +35,5 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           hosts="$(dig +short "$remote_host" | grep -v '\.$' | sed -z 's|\n|,|g')$remote_host"
           ssh-keyscan -p $remote_port -H "$hosts" > ~/.ssh/known_hosts
-          rsync -ruv --delete -e "ssh -p $remote_port" public/ $remote_user@$remote_host:$remote_path
+          rsync -ruv --delete -e "ssh -p $remote_port" build/ $remote_user@$remote_host:$remote_path
           rm ~/.ssh/id_rsa

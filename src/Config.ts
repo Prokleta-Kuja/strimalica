@@ -7,7 +7,7 @@ export default abstract class Config {
       title: "Radio 101",
       url: "http://live.radio101.hr:9531/stream.mp3",
     },
-    { id: 1, title: "Otvoreni", url: "https://stream2.otvoreni.hr/otvoreni" },
+    { id: 1, title: "Otvoreni", url: "http://stream2.otvoreni.hr/otvoreni" },
     { id: 2, title: "Narodni", url: "http://live.narodni.hr:8059/narodni" },
     {
       id: 3,

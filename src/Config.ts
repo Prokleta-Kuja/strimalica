@@ -14,10 +14,15 @@ export default abstract class Config {
       title: "Enter ZG",
       url: "http://live.enterzagreb.hr:8023/stream/",
     },
+    // {
+    //   id: 4,
+    //   title: "Yammat",
+    //   url: "https://streaming.radio.co/s5ad4b474a/listen",
+    // },
     {
-      id: 4,
-      title: "Yammat",
-      url: "https://streaming.radio.co/s5ad4b474a/listen",
+      id: 5,
+      title: "Radio Sljeme",
+      url: "https://21223.live.streamtheworld.com/SLJEMEAAC.aac",
     },
   ];
 

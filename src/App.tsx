@@ -10,11 +10,6 @@ function App() {
   const classes = `list-group-item list-group-item-action list-group-item-${
     radio.isPlaying ? "danger" : "primary"
     } text-center`;
-  const close = () => {
-    window.opener = null;
-    window.open('', '_self');
-    window.close();
-  };
   const refresh = () => {
     window.location.reload();
   };
@@ -33,7 +28,7 @@ function App() {
       </div>
       <div className="d-flex justify-content-between">
         <div className="mt-4">
-          <button className="btn btn-primary" onClick={refresh}>
+          <button className="btn btn-outline-primary" onClick={refresh}>
             <i className="bi bi-arrow-clockwise"></i>
           </button>
         </div>
@@ -45,9 +40,8 @@ function App() {
           </div>
         </div>
         <div className="mt-4">
-          {/* about:config -> allow_scripts_to_close_windows : true */}
-          <button className="btn btn-danger" onClick={close}>
-            <i className="bi bi-x-circle-fill"></i>
+          <button className="btn btn-outline-success" onClick={radio.changeDevice}>
+            <i className="bi bi-speaker"></i>
           </button>
         </div>
       </div>

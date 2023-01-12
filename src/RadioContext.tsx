@@ -15,6 +15,7 @@ export interface IRadioContext {
   currentStation?: RadioStream;
   currentVolume: number;
   isPlaying?: boolean;
+  changeDevice: () => void;
   changeStation: (radio: RadioStream) => void;
   changeVolume: (vol: number) => void;
   toggle: () => void;
@@ -30,6 +31,17 @@ export const RadioCtxProvider = (props: ProviderProps): JSX.Element => {
   const [radio, setRadio] = useState<RadioStream>();
   const [playing, setPlaying] = useState<boolean>(false);
   const [vol, setVol] = useState<number>(100);
+
+  const changeDevice = async () => {
+    // @ts-ignore
+    if (Player.setSinkId === undefined) alert('Please enable setSinkId to switch audio device.\n1. Open about:config in firefox.\n2. Search for media.setsinkid.enabled.\n3. Set the value to true.');
+    else {
+    // @ts-ignore
+    let selected = await navigator.mediaDevices.selectAudioOutput();
+    // @ts-ignore
+      Player.setSinkId(selected.deviceId);
+    }
+  }
 
   const changeStation = (radio?: RadioStream) => {
     radio = radio ? radio : Config.Streams[0];
@@ -99,6 +111,7 @@ export const RadioCtxProvider = (props: ProviderProps): JSX.Element => {
       value={{
         currentStation: radio,
         currentVolume: vol,
+        changeDevice: changeDevice,
         changeStation: changeStation,
         changeVolume: changeVolume,
         toggle: toggleRadio,

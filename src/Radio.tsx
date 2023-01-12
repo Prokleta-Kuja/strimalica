@@ -3,6 +3,7 @@ import { RadioStream, useRadio } from "./RadioContext";
 
 const Radio = (props: RadioStream): JSX.Element => {
   const radio = useRadio();
+
   const changeStream = (e: React.MouseEvent<HTMLButtonElement>) => {
     radio.changeStation(props);
     e.currentTarget.blur();

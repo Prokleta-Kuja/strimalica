@@ -1,9 +1,13 @@
+<script setup lang="ts">
+import HelloWorld from './components/HelloWorld.vue';
+</script>
+
 <template>
   <header>
     <h1>strimalica</h1>
   </header>
 
   <main>
-    <button class="btn btn-primary">Klik</button>
+    <HelloWorld txt="Sviraj" />
   </main>
 </template>

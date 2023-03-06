@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 
 export interface IRadioStream {
   id: number
@@ -24,23 +24,28 @@ export const useRadioPlayer = defineStore('radio-player', () => {
   const radioStreams: IRadioStream[] = [
     {
       id: 1,
+      title: 'Antena ZG',
+      url: 'http://live.antenazagreb.hr:8000/;'
+    },
+    {
+      id: 2,
       title: 'Radio 101',
       url: 'http://live.radio101.hr:9531/stream.mp3'
     },
-    { id: 2, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
-    { id: 3, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
+    { id: 3, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
+    { id: 4, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
     {
-      id: 4,
+      id: 5,
       title: 'Enter ZG',
       url: 'http://live.enterzagreb.hr:8023/stream/'
     },
     {
-      id: 5,
+      id: 6,
       title: 'Radio Sljeme',
       url: 'https://21223.live.streamtheworld.com/SLJEMEAAC.aac'
     }
   ]
-  const currentStream = reactive<IRadioStream>(radioStreams[0])
+  const currentStreamId = ref<number | undefined>()
   const isPlaying = ref(false)
   const currentVolume = ref(100)
 
@@ -63,9 +68,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     player.load()
     player.play().catch(() => {})
     isPlaying.value = true
-    currentStream.id = stream.id
-    currentStream.title = stream.title
-    currentStream.url = stream.url
+    currentStreamId.value = stream.id
 
     if (navigator.mediaSession)
       navigator.mediaSession.metadata = new MediaMetadata({
@@ -92,15 +95,17 @@ export const useRadioPlayer = defineStore('radio-player', () => {
 
   const { mediaSession } = navigator
   const next = () => {
-    if (currentStream) {
-      const idx = currentStream.id === radioStreams.length - 1 ? 0 : currentStream.id + 1
-      changeStation(radioStreams[idx])
+    if (currentStreamId.value) {
+      const currentIdx = radioStreams.findIndex((e) => e.id === currentStreamId.value)
+      if (currentIdx + 1 < radioStreams.length) changeStation(radioStreams[currentIdx + 1])
+      else changeStation(radioStreams[0])
     } else changeStation(radioStreams[0])
   }
   const previous = () => {
-    if (currentStream) {
-      const idx = currentStream.id === 0 ? radioStreams.length - 1 : currentStream.id - 1
-      changeStation(radioStreams[idx])
+    if (currentStreamId.value) {
+      const currentIdx = radioStreams.findIndex((e) => e.id === currentStreamId.value)
+      if (currentIdx === 0) changeStation(radioStreams[radioStreams.length - 1])
+      else changeStation(radioStreams[currentIdx - 1])
     } else changeStation(radioStreams[0])
   }
 
@@ -112,7 +117,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     volumeSteps,
     radioStreams,
     currentVolume,
-    currentStream,
+    currentStreamId,
     changeDevice,
     changeStation,
     changeVolume,

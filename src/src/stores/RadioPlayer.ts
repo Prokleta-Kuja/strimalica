@@ -20,25 +20,26 @@ export interface IRadioPlayer {
 export const useRadioPlayer = defineStore('radio-player', () => {
   const player = new Audio()
 
-  const radioStreams = reactive<IRadioStream[]>([
+  const volumeSteps: number[] = [10, 20, 40, 60, 80, 100]
+  const radioStreams: IRadioStream[] = [
     {
-      id: 0,
+      id: 1,
       title: 'Radio 101',
       url: 'http://live.radio101.hr:9531/stream.mp3'
     },
-    { id: 1, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
-    { id: 2, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
+    { id: 2, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
+    { id: 3, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
     {
-      id: 3,
+      id: 4,
       title: 'Enter ZG',
       url: 'http://live.enterzagreb.hr:8023/stream/'
     },
     {
-      id: 4,
+      id: 5,
       title: 'Radio Sljeme',
       url: 'https://21223.live.streamtheworld.com/SLJEMEAAC.aac'
     }
-  ])
+  ]
   const currentStream = reactive<IRadioStream>(radioStreams[0])
   const isPlaying = ref(false)
   const currentVolume = ref(100)
@@ -108,6 +109,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
 
   return {
     isPlaying,
+    volumeSteps,
     radioStreams,
     currentVolume,
     currentStream,

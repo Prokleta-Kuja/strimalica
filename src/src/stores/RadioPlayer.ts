@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 export interface IRadioStream {
   id: number
@@ -20,7 +20,7 @@ export interface IRadioPlayer {
 export const useRadioPlayer = defineStore('radio-player', () => {
   const player = new Audio()
 
-  const volumeSteps: number[] = [10, 20, 40, 60, 80, 100]
+  const volumeSteps: number[] = [10, 20, 35, 50, 65, 80, 100]
   const radioStreams: IRadioStream[] = [
     {
       id: 1,
@@ -47,6 +47,10 @@ export const useRadioPlayer = defineStore('radio-player', () => {
   ]
   const currentStreamId = ref<number | undefined>()
   const isPlaying = ref(false)
+  const screenSaver = reactive<{ shown: boolean; color: string }>({
+    shown: false,
+    color: ''
+  })
   const currentVolume = ref(100)
 
   const changeDevice = async () => {
@@ -93,6 +97,20 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     }
   }
 
+  let timeout: number
+  const toggleScreenSaver = () => {
+    screenSaver.shown = !screenSaver.shown
+
+    if (screenSaver.shown) changeColor()
+    else clearTimeout(timeout)
+  }
+  const randomNumber = () => Math.floor(Math.random() * 256)
+  const scheduleColor = () => (timeout = setTimeout(changeColor, 3000))
+  const changeColor = () => {
+    screenSaver.color = `rgb(${randomNumber()},${randomNumber()},${randomNumber()})`
+    scheduleColor()
+  }
+
   const { mediaSession } = navigator
   const next = () => {
     if (currentStreamId.value) {
@@ -114,6 +132,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
 
   return {
     isPlaying,
+    screenSaver,
     volumeSteps,
     radioStreams,
     currentVolume,
@@ -121,6 +140,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     changeDevice,
     changeStation,
     changeVolume,
-    toggleRadio
+    toggleRadio,
+    toggleScreenSaver
   }
 })

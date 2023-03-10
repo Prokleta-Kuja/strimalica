@@ -47,8 +47,9 @@ export const useRadioPlayer = defineStore('radio-player', () => {
   ]
   const currentStreamId = ref<number | undefined>()
   const isPlaying = ref(false)
-  const screenSaver = reactive<{ shown: boolean; color: string }>({
+  const screenSaver = reactive<{ shown: boolean; time: string; color: string }>({
     shown: false,
+    time: '',
     color: ''
   })
   const currentVolume = ref(100)
@@ -94,6 +95,7 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     } else {
       player.pause()
       isPlaying.value = false
+      toggleScreenSaver()
     }
   }
 
@@ -107,6 +109,8 @@ export const useRadioPlayer = defineStore('radio-player', () => {
   const randomNumber = () => Math.floor(Math.random() * 256)
   const scheduleColor = () => (timeout = setTimeout(changeColor, 3000))
   const changeColor = () => {
+    const dt = new Date()
+    screenSaver.time = `${dt.getHours()}:${dt.getMinutes()}`
     screenSaver.color = `rgb(${randomNumber()},${randomNumber()},${randomNumber()})`
     scheduleColor()
   }

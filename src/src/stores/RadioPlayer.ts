@@ -109,7 +109,10 @@ export const useRadioPlayer = defineStore('radio-player', () => {
   const randomNumber = () => Math.floor(Math.random() * 256)
   const scheduleColor = () => (timeout = setTimeout(changeColor, 3000))
   const changeColor = () => {
-    screenSaver.time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    screenSaver.time = new Date().toLocaleTimeString('hr-HR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    })
     screenSaver.color = `rgb(${randomNumber()},${randomNumber()},${randomNumber()})`
     scheduleColor()
   }

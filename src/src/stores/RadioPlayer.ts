@@ -20,7 +20,7 @@ export interface IRadioPlayer {
 export const useRadioPlayer = defineStore('radio-player', () => {
   const player = new Audio()
 
-  const volumeSteps: number[] = [10, 20, 35, 50, 65, 80, 100]
+  const volumeSteps: number[] = [10, 20, 35, 50, 65, 75, 85, 100]
   const radioStreams: IRadioStream[] = [
     {
       id: 1,

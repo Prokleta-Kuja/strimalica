@@ -21,6 +21,6 @@ const el = ref<HTMLElement | null>(null);
 
 #screensaver-time {
     color: black;
-    font-size: 40vmin;
+    font-size: 55vmin;
 }
 </style>

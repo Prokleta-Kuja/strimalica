@@ -29,8 +29,8 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     },
     {
       id: 2,
-      title: 'Radio 101',
-      url: 'http://live.radio101.hr:9531/stream.mp3'
+      title: 'Radio tvornica',
+      url: 'https://c8.hostingcentar.com/streams/radiotvornica/'
     },
     { id: 3, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
     { id: 4, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },

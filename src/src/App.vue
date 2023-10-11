@@ -12,16 +12,6 @@ const refresh = () => window.location.reload();
     <ScreenSaver />
     <div class="row">
       <div class="col-2 pt-2">
-        <div className="w-100 btn-group-vertical text-center">
-          <VolumeStep v-for="step in radio.volumeSteps" :key="step" :val="step" />
-        </div>
-      </div>
-      <div class="col-8 vh-100 overflow-auto py-2">
-        <div className="list-group list-group-flush">
-          <StreamItem v-for="stream in radio.radioStreams" :key="stream.id" :stream="stream" />
-        </div>
-      </div>
-      <div class="col-2 pt-2">
         <div class="w-100 btn-group-vertical">
           <button className="btn btn-lg btn-outline-primary" @click="refresh">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -60,6 +50,16 @@ const refresh = () => window.location.reload();
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
             </svg>
           </button>
+        </div>
+      </div>
+      <div class="col-8 vh-100 overflow-auto py-2">
+        <div className="list-group list-group-flush">
+          <StreamItem v-for="stream in radio.radioStreams" :key="stream.id" :stream="stream" />
+        </div>
+      </div>
+      <div class="col-2 pt-2">
+        <div className="w-100 btn-group-vertical text-center">
+          <VolumeStep v-for="step in radio.volumeSteps" :key="step" :val="step" />
         </div>
       </div>
     </div>

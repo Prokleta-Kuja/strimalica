@@ -34,15 +34,16 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     },
     { id: 3, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
     { id: 4, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
+    { id: 5, title: 'Happy FM', url: 'http://c5.hostingcentar.com:9543/stream' },
     {
-      id: 5,
+      id: 6,
       title: 'Enter ZG',
       url: 'http://live.enterzagreb.hr:8023/stream/'
     },
     {
-      id: 6,
+      id: 7,
       title: 'Radio Sljeme',
-      url: 'https://21223.live.streamtheworld.com/SLJEMEAAC.aac'
+      url: 'https://25683.live.streamtheworld.com/SLJEMEAAC.aac'
     }
   ]
   const currentStreamId = ref<number | undefined>()
@@ -107,14 +108,13 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     else clearTimeout(timeout)
   }
   const randomNumber = () => Math.floor(Math.random() * 256)
-  const scheduleColor = () => (timeout = setTimeout(changeColor, 3000))
   const changeColor = () => {
     screenSaver.time = new Date().toLocaleTimeString('hr-HR', {
       hour: '2-digit',
       minute: '2-digit'
     })
     screenSaver.color = `rgb(${randomNumber()},${randomNumber()},${randomNumber()})`
-    scheduleColor()
+    timeout = setTimeout(changeColor, 3500)
   }
 
   const { mediaSession } = navigator

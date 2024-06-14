@@ -25,20 +25,20 @@ export const useRadioPlayer = defineStore('radio-player', () => {
     {
       id: 1,
       title: 'Antena ZG',
-      url: 'http://live.antenazagreb.hr:8000/;'
+      url: 'http://live.antenazagreb.hr:8000/stream'
     },
+    { id: 2, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
+    { id: 3, title: 'Bravo', url: 'http://c5.hostingcentar.com:8057/stream' },
+    { id: 4, title: 'Happy FM', url: 'http://c5.hostingcentar.com:9543/stream' },
     {
-      id: 2,
-      title: 'Radio tvornica',
-      url: 'https://c8.hostingcentar.com/streams/radiotvornica/'
-    },
-    { id: 3, title: 'Otvoreni', url: 'http://stream2.otvoreni.hr/otvoreni' },
-    { id: 4, title: 'Narodni', url: 'http://live.narodni.hr:8059/narodni' },
-    { id: 5, title: 'Happy FM', url: 'http://c5.hostingcentar.com:9543/stream' },
-    {
-      id: 6,
+      id: 5,
       title: 'Enter ZG',
       url: 'http://live.enterzagreb.hr:8023/stream/'
+    },
+    {
+      id: 6,
+      title: 'Radio tvornica',
+      url: 'https://c8.hostingcentar.com/streams/radiotvornica/'
     },
     {
       id: 7,

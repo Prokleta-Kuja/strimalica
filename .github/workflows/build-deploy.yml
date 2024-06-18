@@ -26,21 +26,13 @@ jobs:
         run: npm ci
       - name: Generate static files
         run: npm run build
-      - name: Rsync
+      - name: Deployer
         env:
-          remote_host: ${{ secrets.SSH_HOST }}
-          remote_port: ${{ secrets.SSH_PORT }}
-          remote_user: ${{ secrets.SSH_USER }}
-          remote_key: ${{ secrets.SSH_KEY }}
-          remote_path: ${{ secrets.SSH_PATH }}
+          deploy_key: ${{secrets.CS_DEPLOY_KEY}}
+          deploy_url: https://${{secrets.CS_DEPLOY_URL}}/upload
         run: |
-          mkdir ~/.ssh          
-          echo "$remote_key" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          hosts="$(dig +short "$remote_host" | grep -v '\.$' | sed -z 's|\n|,|g')$remote_host"
-          ssh-keyscan -p $remote_port -H "$hosts" > ~/.ssh/known_hosts
-          rsync -ruv --delete -e "ssh -p $remote_port" dist/ $remote_user@$remote_host:$remote_path
-          rm ~/.ssh/id_rsa
+          cd dist && tar -czvf ../dist.tar.gz $(ls -A) && cd ..
+          curl -f -H "Authorization: api-key $deploy_key" -F "file=@dist.tar.gz" $deploy_url
   notify:
     name: Notify
     runs-on: ubuntu-latest
